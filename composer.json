@@ -1,0 +1,76 @@
+{
+    "$schema": "https://getcomposer.org/schema.json",
+    "name": "elvesora/enrichment-php",
+    "description": "Framework-independent PHP client for the Elvesora Company Enrichment API.",
+    "type": "library",
+    "keywords": [
+        "company data",
+        "company enrichment",
+        "elvesora",
+        "php sdk"
+    ],
+    "homepage": "https://www.elvesora.com/products/data-enrichment",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Elvesora",
+            "homepage": "https://www.elvesora.com"
+        }
+    ],
+    "support": {
+        "docs": "https://www.elvesora.com/docs/enrichment",
+        "issues": "https://github.com/Elvesora/enrichment-php/issues",
+        "source": "https://github.com/Elvesora/enrichment-php"
+    },
+    "require": {
+        "php": "^8.2",
+        "ext-json": "*",
+        "ext-mbstring": "*",
+        "guzzlehttp/guzzle": "^7.9 || ^8.0"
+    },
+    "require-dev": {
+        "phpstan/phpstan": "^2.1",
+        "phpunit/phpunit": "^11.5 || ^12.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "Elvesora\\Enrichment\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Elvesora\\Enrichment\\Tests\\": "tests/"
+        }
+    },
+    "scripts": {
+        "test": "phpunit",
+        "analyse": "phpstan analyse --no-progress",
+        "security-audit": "composer audit --locked --no-interaction",
+        "validate-package": "composer validate --strict",
+        "check": [
+            "@validate-package",
+            "@test",
+            "@analyse",
+            "@security-audit"
+        ]
+    },
+    "config": {
+        "allow-plugins": false,
+        "sort-packages": true
+    },
+    "minimum-stability": "stable",
+    "prefer-stable": true,
+    "archive": {
+        "exclude": [
+            "/.github",
+            "/.phpstan.cache",
+            "/.phpunit.cache",
+            "/.phpunit.result.cache",
+            "/composer.lock",
+            "/tests",
+            "/vendor",
+            "/phpunit.xml.dist",
+            "/phpstan.neon.dist"
+        ]
+    }
+}

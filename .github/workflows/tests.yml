@@ -1,0 +1,45 @@
+name: tests
+
+on:
+  push:
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - php: '8.2'
+            composer-args: '--prefer-lowest'
+          - php: '8.2'
+            composer-args: ''
+          - php: '8.3'
+            composer-args: ''
+          - php: '8.4'
+            composer-args: ''
+          - php: '8.5'
+            composer-args: ''
+
+    steps:
+      - uses: actions/checkout@v7
+
+      - name: Set up PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ matrix.php }}
+          coverage: none
+          tools: composer:v2
+
+      - name: Validate Composer metadata
+        run: composer validate --strict
+
+      - name: Install dependencies
+        run: composer update --prefer-dist --no-interaction --no-progress ${{ matrix.composer-args }}
+
+      - name: Run package checks
+        run: composer check
